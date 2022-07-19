@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Target Test Suite]" guice-stage="DEVELOPMENT" verbose="0">
+  <parameter name="browserName" value="chrome"/>
+  <parameter name="url" value="https://www.target.com"/>
+  <test thread-count="5" name="Target Web Automation(failed)" verbose="0">
+    <classes>
+      <class name="com.target.testPages.HomePageTest.HomePageTest">
+        <methods>
+          <include name="verifySearchProductUsingValidProductName"/>
+          <include name="tearDownAutomation"/>
+          <include name="setUpAutomation"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.target.testPages.HomePageTest.HomePageTest -->
+    </classes>
+  </test> <!-- Target Web Automation(failed) -->
+</suite> <!-- Failed suite [Target Test Suite] -->

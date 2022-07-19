@@ -1,0 +1,5 @@
+configuration\common\WebTestBase.class
+com\target\pages\RegistrationPage.class
+com\target\pageElement\HomePageElements.class
+com\target\pageElement\RegistrationPageElements.class
+com\target\pages\HomePage.class

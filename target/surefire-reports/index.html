@@ -103,7 +103,7 @@
                     <div class="method-list-content skipped suite-Target_Test_Suite">
                       <span>
                         <img src="skipped.png" width="3%"/>
-                        <a href="#" panel-name="suite-Target_Test_Suite" title="com.target.testPages.HomePageTest.HomePageTest" class="method navigator-link" hash-for-method="verifySearchProductUsingValidProductName">verifySearchProductUsingValidProductName</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Target_Test_Suite" title="com.target.testPages.HomePageTest.HomePageTest02" class="method navigator-link" hash-for-method="verifySearchProductUsingValidProductName1">verifySearchProductUsingValidProductName1</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content skipped suite-Target_Test_Suite -->
@@ -121,18 +121,17 @@
           <div class="suite-Target_Test_Suite-class-skipped">
             <div class="main-panel-header rounded-window-top">
               <img src="skipped.png"/>
-              <span class="class-name">com.target.testPages.HomePageTest.HomePageTest</span>
+              <span class="class-name">com.target.testPages.HomePageTest.HomePageTest02</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="verifySearchProductUsingValidProductName">
-                  </a> <!-- verifySearchProductUsingValidProductName -->
-                  <span class="method-name">verifySearchProductUsingValidProductName</span>
-                  <div class="stack-trace">java.lang.NullPointerException
-	at configuration.common.WebTestBase.setUp(WebTestBase.java:42)
+                  <a name="verifySearchProductUsingValidProductName1">
+                  </a> <!-- verifySearchProductUsingValidProductName1 -->
+                  <span class="method-name">verifySearchProductUsingValidProductName1</span>
+                  <div class="stack-trace">java.lang.ArrayIndexOutOfBoundsException: Index 6 out of bounds for length 6
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-... Removed 35 stack frames
+... Removed 32 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -148,11 +147,16 @@
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;Target Test Suite&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
+  &lt;parameter name=&quot;useCloudEnv&quot; value=&quot;false&quot;/&gt;
+  &lt;parameter name=&quot;os&quot; value=&quot;windows&quot;/&gt;
+  &lt;parameter name=&quot;osVersion&quot; value=&quot;10&quot;/&gt;
+  &lt;parameter name=&quot;browserVersion&quot; value=&quot;103&quot;/&gt;
   &lt;parameter name=&quot;browserName&quot; value=&quot;chrome&quot;/&gt;
+  &lt;parameter name=&quot;cloudEnvName&quot; value=&quot;browserStack&quot;/&gt;
   &lt;parameter name=&quot;url&quot; value=&quot;https://www.target.com&quot;/&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Target Web Automation&quot; verbose=&quot;0&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.target.testPages.HomePageTest.HomePageTest&quot;/&gt;
+      &lt;class name=&quot;com.target.testPages.HomePageTest.HomePageTest02&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Target Web Automation --&gt;
 &lt;/suite&gt; &lt;!-- Target Test Suite --&gt;
@@ -194,8 +198,8 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'verifySearchProductUsingValidProductName')
-data.setCell(0, 2, 'com.target.testPages.HomePageTest.HomePageTest')
+data.setCell(0, 1, 'verifySearchProductUsingValidProductName1')
+data.setCell(0, 2, 'com.target.testPages.HomePageTest.HomePageTest02')
 data.setCell(0, 3, 0);
 window.suiteTableData['Target_Test_Suite']= { tableData: data, tableDiv: 'times-div-Target_Test_Suite'}
 return data;
@@ -216,9 +220,22 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Target_Test_Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">4 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">com.target.testPages.HomePageTest.HomePageTest02</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifySearchProductUsingValidProductNameFromDataProvider</span>
+                <br/>
+                <span class="ignored-method-name">verifySearchProductUsingValidProductNameFromExcel</span>
+                <br/>
+                <span class="ignored-method-name">verifySearchProductUsingValidProductNameFromDirectArray</span>
+                <br/>
+                <span class="ignored-method-name">verifySearchProductUsingValidProductName</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Target_Test_Suite" class="panel">
@@ -227,27 +244,43 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.target.testPages.HomePageTest.HomePageTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.target.testPages.HomePageTest.HomePageTest02</div> <!-- chronological-class-name -->
+              <div class="configuration-suite before">
+                <span class="method-name">extentSetup(org.testng.TestRunner@530712d)</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-suite before -->
               <div class="configuration-test before">
                 <span class="method-name">setUpAutomation</span>
-                <span class="method-start">0 ms</span>
+                <span class="method-start">330 ms</span>
               </div> <!-- configuration-test before -->
+              <div class="configuration-method after">
+                <span class="method-name">afterEachTestMethod</span>
+                <span class="method-start">369 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="test-method">
+                <span class="method-name">verifySearchProductUsingValidProductName1</span>
+                <span class="method-start">369 ms</span>
+              </div> <!-- test-method -->
               <div class="configuration-method before">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">setUp(chrome, https://www.target.com)</span>
-                <span class="method-start">68 ms</span>
+                <span class="method-name">setUp</span>
+                <span class="method-start">369 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">getInIt</span>
+                <span class="method-start">369 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">startExtent</span>
+                <span class="method-start">369 ms</span>
               </div> <!-- configuration-method before -->
               <div class="configuration-test after">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">tearDownAutomation</span>
-                <span class="method-start">99 ms</span>
+                <span class="method-start">379 ms</span>
               </div> <!-- configuration-test after -->
-              <div class="test-method">
-                <span class="method-name">verifySearchProductUsingValidProductName</span>
-                <span class="method-start">99 ms</span>
-              </div> <!-- test-method -->
+              <div class="configuration-suite after">
+                <span class="method-name">generateReport</span>
+                <span class="method-start">424 ms</span>
+              </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->

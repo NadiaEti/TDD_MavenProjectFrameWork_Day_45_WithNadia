@@ -5,6 +5,8 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import configuration.reporting.ExtentManager;
 import configuration.reporting.ExtentTestManager;
+import configuration.utilities.ReadPropertiesFrom;
+import configuration.utilities.ReadSystemProperties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
@@ -34,20 +36,30 @@ import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 
 public class WebTestBase {
     //Test Base class: Configuration
     // Create Driver
     public static WebDriver driver;
 
-    // Credential for Cloud Environments
 
-    public static final String BROWSERSTACK_USERNAME = "demo_Kwqeyr";
-    public static final String BROWSERSTACK_ACCESS_KEY = "VUHCsytd4dcyLK8Zpq4m";
+    //Read Properties from utilities package.
+    static Properties readProperty = ReadPropertiesFrom.loadProperties("src/main/resources/Config.properties");
+    String getBrowserStackUserName = readProperty.getProperty("BROWSERSTACK_USERNAME");
+
+
+
+    // Credential for Cloud Environments
+//    public static final String BROWSERSTACK_USERNAME = "demo_Kwqeyr";
+//    public static final String BROWSERSTACK_ACCESS_KEY = "VUHCsytd4dcyLK8Zpq4m";
 
 
     // public static final String BROWSERSTACK_ACCESS_KEY = System.getenv("BROWSERSTACK_ACCESS_KEY");
-    public static final String BROWSERSTACK_URL = "https://" + BROWSERSTACK_USERNAME + ":" + BROWSERSTACK_ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub";
+   // public static final String BROWSERSTACK_URL = "https://" + BROWSERSTACK_USERNAME + ":" + BROWSERSTACK_ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub";
+
+   // This BROWSERSTACK_URL one is for call Read properties from utilities package.
+    public static final String BROWSERSTACK_URL = "https://" + readProperty.getProperty("BROWSERSTACK_USERNAME") + ":" + readProperty.getProperty("BROWSERSTACK_ACCESS_KEY") + "@hub-cloud.browserstack.com/wd/hub";
 
     public static final String SAUCELABS_USERNAME = "beheb71544";
     public static final String SAUCELABS_ACCESS_KEY = "f31e9b7b-f503-4eeb-b01c-4e5e45882de5";
@@ -156,6 +168,37 @@ public class WebTestBase {
         System.out.println("***************** Automation End *******************");
 
     }
+    //This parameter is for ReadSystemProperty purpose
+    /**
+     //     * This method will accept url based on Environment from command line during the execution
+     //     * @param useCloudEnv
+     //     * @param cloudEnvName
+     //     * @param os
+     //     * @param osVersion
+     //     * @param browserName
+     //     * @param browserVersion
+     //     * @throws MalformedURLException
+     //     */
+
+    @Parameters({"useCloudEnv","cloudEnvName","os","osVersion","browserName","browserVersion","url"})
+    @BeforeMethod
+    public void setUp(@Optional("false")boolean useCloudEnv, @Optional("sauceLabs") String cloudEnvName, @Optional("OS X") String os,@Optional("Big Sure") String osVersion, @Optional("firefox") String browserName,@Optional("100") String browserVersion) throws MalformedURLException {
+        if (useCloudEnv) {
+            if (cloudEnvName.equalsIgnoreCase("browserStack")) {
+                getCloudDriver(cloudEnvName, os, osVersion, browserName, browserVersion);
+            }
+        } else {
+            grtLocalDriver(os,browserName);
+        }
+        getLog("Browser : " + browserName);
+        getLog("Url : " + ReadSystemProperties.getEnvUrl());
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().deleteAllCookies();
+        driver.get(ReadSystemProperties.getEnvUrl());
+    }
+
 
     @Parameters({"useCloudEnv","cloudEnvName","os","osVersion","browserName","browserVersion","url"})
     @BeforeMethod
@@ -270,5 +313,9 @@ public class WebTestBase {
             getLog("Exception while taking ScreenShot "+e.getMessage());
         }
         return fileName;
+    }
+
+    public void waitFor(int seconds) throws InterruptedException {
+        Thread.sleep(1000*seconds);
     }
 }

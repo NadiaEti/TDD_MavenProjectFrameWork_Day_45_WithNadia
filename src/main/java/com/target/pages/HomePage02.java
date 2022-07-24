@@ -6,9 +6,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-import static com.target.pageElement.HomePageElements.searchBoxWebElement;
-import static com.target.pageElement.HomePageElements.searchButtonWebElement;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.target.pageElement.HomePageElements.*;
+import static configuration.utilities.DataDriven.getItemsListFromDB;
+import static configuration.utilities.DataDriven.getItemsListFromExcel;
+import static configuration.utilities.DataProviderUtils.getRegistrationDataFromExcel;
+import static org.apache.commons.io.FileUtils.waitFor;
 
 public class HomePage02 extends WebTestBase {
 
@@ -21,17 +28,112 @@ public class HomePage02 extends WebTestBase {
 
 
     //Modern Approach: @FindBy
-    @FindBy(xpath =searchBoxWebElement) public WebElement searchBox;
-    @FindBy(xpath =searchButtonWebElement) public WebElement searchButton;
+    @FindBy(xpath = searchBoxWebElement)
+    public WebElement searchBox;
+    @FindBy(xpath = searchButtonWebElement)
+    public WebElement searchButton;
 
-public void searchProductUsingValidProductName(){
+    public void searchProductUsingValidProductName() {
 //WebElement element = driver.findElement(By.xpath(searchBoxWebElement));
-searchBox.sendKeys("Diapers");
-searchButton.click();
-}
+        searchBox.sendKeys("Diapers");
+        searchButton.click();
+    }
+
+    public static List<String> getExpectedProducts() {
+        List<String> itemsList = new ArrayList<>();
+        itemsList.add("Hand Sanitizer");
+        itemsList.add("iphone 11 pro max");
+//        itemsList.add("T-shirt");
+//        itemsList.add("Mens shirt");
+//        itemsList.add("Shoes");
+//        itemsList.add("Camera");
+//        itemsList.add("Bike");
+//        itemsList.add("Tv");
+        return itemsList;
+    }
+
+    // Data Driven Approach : Direct data
+    public void searchProductUsingValidProductName1() throws InterruptedException {
+        for (String st:getExpectedProducts()) {
+            searchBox.clear();
+            searchBox.sendKeys(st);
+            searchButton.click();
+            String expectedProductName = "\"" + st + "\"";
+            String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+            Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
+            waitFor(5);
+        }
+    }
+
+    // Data driven approach from Excel
+    public void searchProductUsingValidProductName2() throws Exception {
+        for (int i = 0; i < getItemsListFromExcel().size(); i++) {
+            searchBox.clear();
+            searchBox.sendKeys(getItemsListFromExcel().get(i + 1));
+            searchButton.click();
+            String expectedProductName = "\"" + getItemsListFromExcel().get(i + 1) + "\"";
+            String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+            Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
+            waitFor(5);
+        }
+    }
+
+    // Data driven approach from Database
+    public void searchProductUsingValidProductName3() throws Exception {
+        for (String st : getItemsListFromDB()) {
+            searchBox.clear();
+            searchBox.sendKeys(st);
+            searchButton.click();
+            String expectedProductName = "\"" + st + "\"";
+            String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+            Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
+        }
+    }
+        // Data driven approach from Data Provider
+        public void searchProductUsingValidProductName4() throws Exception{
+
+//            for (int i = 0; i < getRegistrationDataFromExcel().length; i++) {
+//                for (int j = i; j < getRegistrationDataFromExcel()[i].length; j++) {
+//                    System.out.println(getRegistrationDataFromExcel()[i][j]);
+//                searchBox.clear();
+//                String firstName= (String) getRegistrationDataFromExcel()[i][j];
+//                searchBox.sendKeys(firstName);
+//                waitFor(5);
+//                searchBox.clear();
+//                String lastName= (String) getRegistrationDataFromExcel()[i][j];
+//                lastName.sendKeys(lastName);
+//
+//                searchButton.click();
+//                String expectedProductName = "\"" + st + "\"";
+//                String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+//                Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
+//
+                }
+            }
 
 
+//        for (Object[] stt:  getRegistrationDataFromExcel()) {
+//            for (Object st:stt) {
+//                searchBox.clear();
+//                searchBox.sendKeys((String) st);
+//                searchButton.click();
+//                String expectedProductName = "\"" + st + "\"";
+//                String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+//                Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
+//
+//
+//            }
+//        }
 
 
+//        for (String st : getItemsListFromDB()) {
+//            searchBox.clear();
+//            searchBox.sendKeys(st);
+//            searchButton.click();
+//            String expectedProductName = "\"" + st + "\"";
+//            String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
+//            Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
 
-}
+//}
+
+

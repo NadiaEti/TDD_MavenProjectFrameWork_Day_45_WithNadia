@@ -13,7 +13,7 @@ import static com.target.pageElement.TargetHomePageElements.*;
 public class TargetHomePageTest extends WebTestBase {
 
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void verifySearchProductUsingValidProductName() {
         //Approach-1
         HomePage homePage = new HomePage(driver);
@@ -23,13 +23,13 @@ public class TargetHomePageTest extends WebTestBase {
         homePage.searchProductUsingValidProductName();
 
         // Verification method
-        String expectedProductName = "85 results for “Diapers”";
+        String expectedProductName = "271 results for “Diapers”";
         String actualProductName = driver.findElement(By.xpath(verifySearchedProductWebElement)).getText();
         Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
 
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void verifyTargetFindStoreDirectory() {
         TargetHomePage targetHomePage = new TargetHomePage(driver);
         targetHomePage.targetFindStoreDirectory();
@@ -40,7 +40,7 @@ public class TargetHomePageTest extends WebTestBase {
         Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
 
     }
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void verifyTargetCategories() {
         TargetHomePage targetHomePage = new TargetHomePage(driver);
         targetHomePage.targetCategories();
@@ -51,7 +51,7 @@ public class TargetHomePageTest extends WebTestBase {
         Assert.assertEquals(actualProductName, expectedProductName, "Product name doest match");
 
     }
-    @Test
+    @Test(enabled = false)
     public void verifyTargetWhatsNew() {
         TargetHomePage targetHomePage = new TargetHomePage(driver);
         targetHomePage.targetWhatsNew();
